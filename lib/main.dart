@@ -32,6 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Timer? waitingTimer;
   Timer? stoppableTimer;
+  Color? buttonColor;
 
   @override
   Widget build(BuildContext context) {
@@ -92,10 +93,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: 200,
                     child: Center(
                       child: Text(_getButtonText(),
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 38,
                               fontWeight: FontWeight.w900,
-                              color: Colors.white)),
+                              // color: Colors.white)),
+                              color: buttonColor)),
                     ),
                   ),
                 ),
@@ -108,10 +110,13 @@ class _MyHomePageState extends State<MyHomePage> {
   String _getButtonText() {
     switch (gameState) {
       case GameState.readyToStart:
+        buttonColor = const Color(0xFF40CA88);
         return "START";
       case GameState.waiting:
+        buttonColor = const Color(0xFFE0982D);
         return "WAIT";
       case GameState.canBeStopped:
+        buttonColor = const Color(0xFFE02D47);
         return "STOP";
     }
   }
@@ -134,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _startStoppableTimer() {
-    stoppableTimer = Timer.periodic(Duration(milliseconds: 16), (timer) {
+    stoppableTimer = Timer.periodic(const Duration(milliseconds: 16), (timer) {
       setState(() {
         millisecondsText = "${timer.tick * 16} ms";
       });
